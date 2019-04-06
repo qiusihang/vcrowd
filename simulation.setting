@@ -1,0 +1,21 @@
+data.file = test.csv
+data.n_judgements = 3
+
+task_manager.n_data_rows = 3
+# task_manager.data_selection = default
+task_manager.data_selection = customized
+# task_assignment.assign = default
+task_assignment.assign = customized
+
+# worker_manager.execute = default
+worker_manager.execute = customized
+worker_manager.worker_arrival_interval = 38
+worker_manager.worker_classification = 3
+worker_manager.worker_classification_name = low, medium, high
+worker_manager.worker_distribution = 0.333, 0.333, 0.333
+worker_manager.dropout_time = 1800
+
+output.time_stamp = 600
+output.properties = precision, recall, cost
+
+runtime = 3600
