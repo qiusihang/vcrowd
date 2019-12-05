@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Crowdsourcing Simulation</title>
+        <script type=text/javascript src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type=text/javascript src="{{ url_for('static', filename='js/cssim.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body bgcolor="#f2f2f2">
+        <div id="data" style="display:none">{{data}}</div>
+
+        <div id = "head"><a href="/"><div id = "logo">&nbsp;VirtualCrowd&nbsp;</div></a></div>
+        <div id = "settingbar">
+            <div id = "content">
+                <table style="width:100%;"><tr><td style="text-align:left;vertical-align: bottom;width:70%;">
+                <span style="font-size:24px;color:#21618C;"><b>Results</b>
+                </span></td></tr></table>
+                <hr><br/>
+
+                <div id = "qualityres"></div>
+                
+                <center><span style="font-size:16px;color:#21618C;">
+                    <b><u>Download results</u></b>
+                </span></center>
+                <br/>
+            </div>
+        </div>
+
+        <div id = "sidebar">
+            <div style="position:absolute;top:10px;left:10px;height:80px;">
+                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
+                <div id="data-title" style="font-size:20px;height:30px;display:inline-block;overflow:auto;">{{data.title}}</div>
+            </div>
+            <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
+            <div style="position:absolute;top:110px;left:10px;font-size:16px"><b>Created: </b><div id="data-created" style="display:inline-block">{{data.created}}</div></div>
+            <div style="position:absolute;top:130px;left:10px;font-size:16px"><b>Modified: </b>{{data.modified}}</div>
+
+            <div style="position:absolute;top:200px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage('settings?pid={{data.pid}}')">General Settings</div>
+            <div style="position:absolute;top:220px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage('dup?pid={{data.pid}}')">Duplicate this Instance</div>
+            <div style="position:absolute;top:240px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage('del?pid={{data.pid}}')">Delete this Instance</div>
+
+            <!-- <div style="position:absolute;top:230px;left:10px;font-size:16px"><b>Instruction</b></div>
+            <div style="position:absolute;top:260px;left:10px;font-size:16px;color:#21618C;">Source data</div>
+            <div style="position:absolute;top:280px;left:10px;font-size:16px;color:#21618C;">Customized functions</div>
+            <div style="position:absolute;top:300px;left:10px;font-size:16px;color:#21618C;">Output analysis</div>
+            <div style="position:absolute;top:320px;left:10px;font-size:16px;color:#21618C;">Examples</div> -->
+        </div>
+
+        <!-- <div id = "run-button" style="background:#d6d6d6;">
+            <div id = "run-button-text"><b>Running</b></div>
+        </div> -->
+
+        <a href="settings?pid={{data.pid}}"><div id = "result-button">
+            <div id = "result-button-text"><b>Back to Settings</b></div>
+        </div></a>
+    </body>
+
+</html>

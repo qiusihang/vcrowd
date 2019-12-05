@@ -1,4 +1,5 @@
 *.DS_Store
-output
-simulation.design_draft
-templates
+*output
+*project
+*simulation.design_draft
+*__pycache__

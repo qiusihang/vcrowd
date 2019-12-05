@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Crowdsourcing Simulation</title>
+        <script type=text/javascript src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type=text/javascript src="{{ url_for('static', filename='js/cssim.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script type=text/javascript charset="utf-8" src="{{ url_for('static', filename='js/ace/ace.js') }}"></script>
+        <!-- <script type=text/javascript src="../static/js/jquery.min.js"></script>
+        <script type=text/javascript src="../static/js/cssim.js"></script>
+        <link rel="stylesheet" href="../static/css/style.css">
+        <script type=text/javascript charset="utf-8" src="../static/js/ace/ace.js"></script> -->
+        <style type="text/css" media="screen">
+            .editor {
+                height:200px;
+                right: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+
+    <body bgcolor="#f2f2f2">
+        <div id="data" style="display:none">{{data}}</div>
+
+        <div id = "head"><a href="/"><div id = "logo">&nbsp;VirtualCrowd&nbsp;</div></a></div>
+        <div id = "settingbar">
+            <div id = "content">
+                <table style="width:100%;"><tr><td style="text-align:left;vertical-align: bottom;width:70%;">
+                <span style="font-size:24px;color:#21618C;"><b>Code Editor for Plug-ins</b>
+                </span></td><td style="text-align:right;vertical-align: bottom;width:30%;">
+                </td></tr></table>
+                <br/>
+
+                <br/><b>Worker and Task Models</b><hr>
+
+                <div id = "workermodel">
+                    Worker Model<br/><br/>
+                    <div id="editor1" class="editor">{{function.workermodel}}</div>
+                    <br/>
+                </div>
+
+                <div id = "taskmodel">
+                    Task Model<br/><br/>
+                    <div id="editor2" class="editor">{{function.taskmodel}}</div>
+                    <br/>
+                </div>
+
+                <br/><b>Customized Strategies</b><hr>
+
+                <div id = "taskgen">
+                    Task Generation<br/><br/>
+                    <div id="editor4" class="editor">{{function.taskgen}}</div>
+                    <br/>
+                </div>
+
+                <div id = "taskassign">
+                    Task Assignment<br/><br/>
+                    <div id="editor5" class="editor">{{function.taskassign}}</div>
+                    <br/>
+                </div>
+
+                <div id = "workerslt">
+                    Worker Selection<br/><br/>
+                    <div id="editor3" class="editor">{{function.workerslt}}</div>
+                    <br/>
+                </div>
+
+                <br/><b>Others</b><hr>
+                <div id = "others">
+                    Code for Output<br/><br/>
+                    <div id="editor6" class="editor">{{function.others}}</div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div id = "sidebar">
+            <div style="position:absolute;top:10px;left:10px;height:80px;">
+                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
+                <div id="data-title" style="font-size:20px;height:30px;display:inline-block;overflow:auto;">{{data.title}}</div>
+            </div>
+            <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
+            <div style="position:absolute;top:110px;left:10px;font-size:16px"><b>Created: </b><div id="data-created" style="display:inline-block">{{data.created}}</div></div>
+            <div style="position:absolute;top:130px;left:10px;font-size:16px"><b>Modified: </b>{{data.modified}}</div>
+
+            <div style="position:absolute;top:200px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_plugins('settings?pid={{data.pid}}')">General Settings</div>
+            <div style="position:absolute;top:220px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_plugins('dup?pid={{data.pid}}')">Duplicate this Instance</div>
+            <div style="position:absolute;top:240px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_plugins('del?pid={{data.pid}}')">Delete this Instance</div>
+
+            <!-- <div style="position:absolute;top:230px;left:10px;font-size:16px"><b>Instruction</b></div>
+            <div style="position:absolute;top:260px;left:10px;font-size:16px;color:#21618C;">Source data</div>
+            <div style="position:absolute;top:280px;left:10px;font-size:16px;color:#21618C;">Customized functions</div>
+            <div style="position:absolute;top:300px;left:10px;font-size:16px;color:#21618C;">Output analysis</div>
+            <div style="position:absolute;top:320px;left:10px;font-size:16px;color:#21618C;">Examples</div> -->
+        </div>
+
+
+        <div id = "save-button" onclick="savebtn_plugins()">
+            <div id = "save-button-text"><b>Save</b></div>
+        </div>
+
+        <div id = "run-button" onclick="runbtn()">
+            <div id = "run-button-text"><b>Run</b></div>
+        </div>
+        <div id = "stop-run">
+            <div id = "stop-run-text"><b>Runing</b></div>
+        </div>
+
+        <div id = "result-button" onclick="gotopage_plugins('results?pid={{data.pid}}')">
+            <div id = "result-button-text"><b>Results</b></div>
+        </div>
+
+        <script>
+            for (var i = 1 ; i <= 6 ; i ++ )
+            {
+                var editor = ace.edit("editor"+i);
+                editor.setTheme("ace/theme/textmate");
+                editor.session.setMode("ace/mode/python");
+            }
+        </script>
+    </body>
+
+</html>

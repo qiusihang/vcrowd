@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Crowdsourcing Simulation</title>
+        <script type=text/javascript src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <!-- <script type=text/javascript src="{{ url_for('static', filename='js/cssim.js') }}"></script> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body bgcolor="#f2f2f2">
+
+        <div id = "head"><a href="/"><div id = "logo">&nbsp;VirtualCrowd&nbsp;</div></a></div>
+        <div id = "main">
+            <div id = "create-button" onclick="newinstance()">
+                <div id = "create-button-text">New Instance</div>
+            </div>
+            <div id = "list">
+            <table style="width:100%" rules=rows>
+                <tr>
+                    <td style="width:3%"><!-- <input type="checkbox"/> --></td>
+                    <td style="width:37%"><div class = "item-title"><span style="color:#999999"><b>Title</b></span></div></td>
+                    <td style="width:20%"><div class = "item-status"><span style="color:#999999"><b>Modified</b></span></div></td>
+                    <td style="width:20%"><div class = "item-status"><span style="color:#999999"><b>Created</b></span></div></td>
+                    <td style="width:20%"><div class = "item-actions"><span style="color:#999999"><b>Actions</b></span></div></td>
+                </tr>
+                {%for i in range(0, len)%}
+                <tr>
+                    <td><input type="checkbox"/></td>
+                    <td><a href="settings?pid={{pids[i]}}"><div class = "item-title">{{titles[i]}}</div></a></td>
+                    <td><div class = "item-status">{{modified[i]}}</div></td>
+                    <td><div class = "item-status">{{created[i]}}</div></td>
+                    <td><div class = "item-actions">
+                        <a href="dup?pid={{pids[i]}}"><input style="width:80px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="Duplicate"/></a>
+                        <a href="del?pid={{pids[i]}}"><input style="width:80px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="Delete"/></a>
+                    </div></td>
+                </tr>
+                {%endfor%}
+            </table>
+            </div>
+        </div>
+        <div id="newins" style="position:absolute;visibility:hidden;top:100px;left:200px;width:400px;height:100px;background:rgba(0,0,0,0.5);border-radius:10px;">
+            <input id="name" style="position:absolute;top:10px;left:10px;width:370px;height:30px;border-radius:10px;font-size:16px;" value="New Instance">
+            <input id="confirm" style="position:absolute;top:60px;left:110px;width:80px;height:30px;border-radius:10px;font-size:12px;cursor:pointer;" type="button" value="confirm" onclick="newsettings()">
+            <input style="position:absolute;top:60px;left:210px;width:80px;height:30px;border-radius:10px;font-size:12px;cursor:pointer;" type="button" value="cancel" onclick="cancel()">
+        </div>
+
+        <script>
+            function newinstance() {
+                document.getElementById("newins").style.visibility = "visible";
+            }
+            function cancel() {
+                document.getElementById("newins").style.visibility = "hidden";
+            }
+            var newsettings = function() {
+                window.location.href = "new?title=" + document.getElementById("name").value;
+            }
+        </script>
+    </body>
+
+</html>

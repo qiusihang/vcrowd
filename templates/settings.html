@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Crowdsourcing Simulation</title>
+        <script type=text/javascript src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type=text/javascript src="{{ url_for('static', filename='js/cssim.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- <script type=text/javascript src="../static/js/jquery.min.js"></script>
+        <script type=text/javascript src="../static/js/cssim.js"></script>
+        <link rel="stylesheet" href="../static/css/style.css"> -->
+    </head>
+
+    <body bgcolor="#f2f2f2">
+        <div id="data" style="display:none">{{data}}</div>
+
+        <div id = "head"><a href="/"><div id = "logo">&nbsp;VirtualCrowd&nbsp;</div></a></div>
+        <div id = "settingbar">
+            <div id = "content">
+                <table style="width:100%;"><tr>
+                    <td style="text-align:left;vertical-align: bottom;width:70%;">
+                        <span style="font-size:24px;color:#21618C;"><b>Settings</b>&nbsp;&nbsp;
+                            <span onclick="datasettings()" style="font-size:20px;color:#21618C;cursor:pointer;">Data</span>&nbsp;
+                            <span onclick="workersettings()" style="font-size:20px;color:#21618C;cursor:pointer;">Worker</span>&nbsp;
+                            <span onclick="outputsettings()" style="font-size:20px;color:#21618C;cursor:pointer;">Output</span>&nbsp;
+                            <span onclick="pluginssettings()" style="font-size:20px;color:#21618C;cursor:pointer;">Plug-ins</span>
+                        </span>
+                    </td>
+                    <!-- <td style="text-align:right;vertical-align: bottom;width:30%;">
+                        <span style="font-size:14px;color:#21618C;">
+                            Template
+                            <select>
+                                <option value="bbox">Bounding Box</option>
+                                <option value="bbox">Multiple Choices</option>
+                                <option value="bbox">Text</option>
+                            </select>
+                        </span>
+                    </td> -->
+                </tr></table>
+                <hr><br/>
+
+                <div id = "datasettings">
+                    <b>Data Settings</b><br/><br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:30%">Add source data<br/><span style="font-size:14px;color:#666666;">(Optional)</span></td>
+                            <td>
+                                <input id="file" type="file" style="font-size:14px;" value="{{data.file}}"><br/>
+                                <span style="font-size:14px;color:#666666;">CSV spreadsheet.</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;"></td></tr>
+
+                        <tr>
+                            <td>Price per judgment</td>
+                            <td>
+                                <input id="price" style="font-size:12px;border-radius:4px;" size="10" value="{{data.price}}">&nbsp;&nbsp;$ <br/>
+                                <span style="font-size:14px;color:#666666;">Amount you pay a worker per judgment.</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;"></td></tr>
+
+                        <tr>
+                            <td>Judgments per data row &nbsp;&nbsp;</td>
+                            <td>
+                                <input id="n_judgements" style="font-size:12px;border-radius:4px;" size="10" value="{{data.n_judgements}}"><br/>
+                                <span style="font-size:14px;color:#666666;">Number of judgments per data row.</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr><br/>
+                </div>
+
+                <div id = "workersettings">
+                    <b>Worker Settings</b><br/><br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:30%;height:20px;">Inter arrival time &nbsp;</td>
+                            <td style="height:20px;">
+                                <input id="worker_arrival_interval" style="font-size:12px;border-radius:4px;" size="10" value="{{data.worker_arrival_interval}}"><br/>
+                                <span style="font-size:14px;color:#666666;">Average inter arrival time follows the Poisson distribution.  (unit: second)</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;"></td></tr>
+
+                        <tr>
+                            <td style="height:20px;">Dropout time &nbsp;</td>
+                            <td style="height:20px;">
+                                <input id="dropout_time" style="font-size:12px;border-radius:4px;" size="10" value="{{data.dropout_time}}"><br/>
+                                <span style="font-size:14px;color:#666666;">The task will be terminated if the worker cannot complete it within dropout time.  (unit: second)</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;"></td></tr>
+
+                        <tr>
+                            <td style="height:20px;">Classifications &nbsp;</td>
+                            <td style="height:20px;">
+                                <input id="n_class" style="font-size:12px;border-radius:4px;" size="10" value="3">
+                                <input style="width:100px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="Apply" onclick="newproperties()">
+                                <input style="width:100px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="Add property" onclick="showaddproperty()">
+                                <div id="add_prop" style="display:none">
+                                    <input id="property_name" style="font-size:12px;border-radius:4px;" size="20" value="property name">
+                                    <input style="width:100px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="OK" onclick="addproperty()">
+                                </div><br/>
+                                <span style="font-size:14px;color:#666666;">Number of classifications of workers (0 < n &le; 5).  (unit of time: second)</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br/>
+
+                    <div id = "properties" style="left:20px;right:20px;background-color:#dddddd;border-radius:4px;overflow:auto;display:none;"></div>
+
+                    <br/>
+                    <hr><br/>
+                </div>
+
+                <div id = "outputsettings">
+                    <b>Output Settings</b><br/><br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="height:20px;">Running time &nbsp;</td>
+                            <td style="height:20px;">
+                                <input id="runtime" style="font-size:12px;border-radius:4px;" size="10" value="{{data.runtime}}"><br/>
+                                <span style="font-size:14px;color:#666666;">The total running time of this simulation instance. (unit: second)</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;"></td></tr>
+                        <tr>
+                            <td style="width:30%;height:20px;">Output time step &nbsp;</td>
+                            <td style="height:20px;">
+                                <input id="time_stamp" style="font-size:12px;border-radius:4px;" size="10" value="{{data.time_stamp}}"><br/>
+                                <span style="font-size:14px;color:#666666;">The system will record output data at each time step. (unit: second)</span>
+                            </td>
+                        </tr>
+
+                        <tr><td style="height:10px;display:none"></td></tr>
+                        <tr style="display:none">
+                            <td style="height:20px;display:none">Repeat Times &nbsp;</td>
+                            <td style="height:20px;display:none">
+                                <input id="repeat_times" style="font-size:12px;border-radius:4px;" size="10" value="{{data.repeat_times}}"> <br/>
+                                <span style="font-size:14px;color:#666666;">The execution times of this simulation instance.</span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <hr><br/>
+                </div>
+
+                <div id = "plugins">
+                    <b>Plug-ins</b>
+                    <div style="display:inline-block;color:#21618C;cursor:pointer" onclick="gotopage_settings('plugins?pid={{data.pid}}')">[<u>code editor</u>]</div>
+                    <br/><br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:30%;height:20px;">Task generation</td>
+                            <td style="height:20px;"><input type="radio" name = "tg" id="tg1" value = "default" checked="checked"> &nbsp;Default (random)</td>
+                            <td style="height:20px;">Data rows per task &nbsp;&nbsp;<input id="n_data_rows" style="font-size:12px;border-radius:4px;" size="10" value="{{data.n_data_rows}}"></td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;"></td>
+                            <td style="height:20px;"><input type="radio" name = "tg" id="tg2" value = "customized"> &nbsp;Customized</td>
+                        </tr>
+                        <tr><td style="height:10px;"></td></tr>
+                        <tr>
+                            <td style="height:20px;">Task assignment</td>
+                            <td style="height:20px;"><input type="radio" name = "ta" id="ta1" value = "default" checked="checked"> &nbsp;Default (random)<br/></td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;"></td>
+                            <td style="height:20px;"><input type="radio" name = "ta" id="ta2" value = "customized"> &nbsp;Customized</td>
+                        </tr>
+                        <tr><td style="height:10px;"></td></tr>
+                        <tr>
+                            <td style="height:20px;">Worker selection</td>
+                            <td style="height:20px;"><input type="radio" name = "ws" id="ws1" value = "none" checked="checked"> &nbsp;None<br/></td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;"></td>
+                            <td style="height:20px;"><input type="radio" name = "ws" id="ws2" value = "customized"> &nbsp;Customized</td>
+                        </tr>
+                    </table>
+                    <hr><br/>
+                </div>
+
+            </div>
+        </div>
+
+        <div id = "sidebar">
+            <div style="position:absolute;top:10px;left:10px;height:80px;">
+                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
+                <input id="data-title" style="font-size:20px;border:1px solid #e6e6e6;" size="25" value="{{data.title}}">
+            </div>
+            <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
+            <div style="position:absolute;top:110px;left:10px;font-size:16px"><b>Created: </b><div id="data-created" style="display:inline-block">{{data.created}}</div></div>
+            <div style="position:absolute;top:130px;left:10px;font-size:16px"><b>Modified: </b>{{data.modified}}</div>
+
+            <div style="position:absolute;top:200px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_settings('plugins?pid={{data.pid}}')">Code editor for Plug-ins</div>
+            <div style="position:absolute;top:220px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_settings('dup?pid={{data.pid}}')">Duplicate this Instance</div>
+            <div style="position:absolute;top:240px;left:10px;font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage_settings('del?pid={{data.pid}}')">Delete this Instance</div>
+
+            <!-- <div style="position:absolute;top:230px;left:10px;font-size:16px"><b>Instruction</b></div>
+            <div style="position:absolute;top:260px;left:10px;font-size:16px;color:#21618C;">Source data</div>
+            <div style="position:absolute;top:280px;left:10px;font-size:16px;color:#21618C;">Customized functions</div>
+            <div style="position:absolute;top:300px;left:10px;font-size:16px;color:#21618C;">Output analysis</div>
+            <div style="position:absolute;top:320px;left:10px;font-size:16px;color:#21618C;">Examples</div> -->
+        </div>
+
+        <div id = "save-button" onclick="savebtn_settings()">
+            <div id = "save-button-text"><b>Save</b></div>
+        </div>
+
+        <div id = "run-button" onclick="runbtn()">
+            <div id = "run-button-text"><b>Run</b></div>
+        </div>
+        <div id = "stop-run">
+            <div id = "stop-run-text"><b>Runing</b></div>
+        </div>
+
+        <div id = "result-button" onclick="gotopage_settings('results?pid={{data.pid}}')">
+            <div id = "result-button-text"><b>Results</b></div>
+        </div>
+    </body>
+
+</html>
