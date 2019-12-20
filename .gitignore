@@ -1,5 +1,6 @@
 *.DS_Store
 *output
 *project
+py/functions.py
 static/js/ace
 *__pycache__
