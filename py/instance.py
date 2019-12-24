@@ -34,10 +34,15 @@ class Instance:
 
         self.functions =  __import__("functions")
         importlib.reload(self.functions)
+        self.functions.init(self.wm, self.tm, self.data)
 
 
     def run(self):
-         # add first event create_agent
+        # generate task
+        for i in range(len(self.data.data_units)):
+            self.tm.add_task()
+
+        # add first event create_agent
         self.event_heap.push(Event("create_agent",np.random.poisson(self.wm.worker_arrival_interval,1)[0]))
 
         # add events output
@@ -65,9 +70,9 @@ class Instance:
                     (worker, task) = self.tm.assign_task(self.wm)
                     if worker is not None and task is not None:
                         worker.task = task
-                        wm.remove_worker(worker)
-                        self.remove_task(task)
-                        execution_time = worker.execute()
+                        self.wm.remove_worker(worker)
+                        self.tm.remove_task(task)
+                        execution_time = worker.execute(self.wm, self.tm, self.data)
                         if execution_time < self.wm.dropout_time:
                             self.event_heap.push(Event("agent_finish_task",self.time + execution_time, worker))
 
@@ -116,3 +121,4 @@ class Instance:
         f.write(json.dumps(self.range))
         f.close()
         self.plot(self.range)
+        self.functions.final(self.wm, self.tm, self.data)

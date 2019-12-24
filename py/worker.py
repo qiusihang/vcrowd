@@ -1,33 +1,6 @@
 import random
 from data import *
 
-# class Worker:
-#
-#     def __init__(self, wid, classification):
-#         self.wid = wid
-#         self.classification = classification
-#         self.task = None
-#         self.properties = {} # configurable
-#         self.executefunc = "default"
-#
-#     def assign_property(self, name, value):
-#         self.properties[name] = value
-#
-#     def execute(self): # this function returns the actual execution time
-#         # try custom execution fucntion
-#         if self.executefunc == "customized":
-#             return functions.execute(self, self.task)
-#         # if custom execution fucntion doesn't exist, return default value
-#         return 300 # execution_time
-#
-#     def submit(self):
-#         if self.task is None:
-#             return
-#         for du in self.task.data_units:
-#             j = Judgement(self, self.task, du)
-#             du.judgements.append(j)
-
-
 class WorkerManager:
 
     def __init__(self):
@@ -44,9 +17,6 @@ class WorkerManager:
         self.worker_properties = [] # configurable
         self.functions =  __import__("functions")
 
-    def assign_property(self, name, value):
-        self.properties[name] = value
-
     def remove_worker(self, worker):
         try:
             self.waiting_queue.remove(worker)
@@ -62,7 +32,11 @@ class WorkerManager:
                 probability = 1
             if p <= probability:
                 self.count += 1
-                worker = self.functions.Worker(self.count, i, self.worker_properties)
+                properties = {}
+                for j in range(len(self.worker_property_names)):
+                    name = self.worker_property_names[j]
+                    properties[name] = self.worker_properties[j][i]
+                worker = self.functions.Worker(self.count, i, properties)
                 worker.executefunc = self.execute
                 self.workers.append(worker)
                 self.waiting_queue.append(worker)

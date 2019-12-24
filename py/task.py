@@ -42,7 +42,7 @@ class TaskManager:
         else:
             data_units = self.data.random_selection(self.n_data_rows)
         task = self.functions.Task(self.count, data_units)
-        if len(task.data_units > 0): # the task is not empty
+        if len(task.data_units) > 0: # the task is not empty
             self.tasks.append(task)
             self.waiting_queue.append(task)
 

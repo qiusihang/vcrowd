@@ -1,4 +1,5 @@
 import json
+import os
 
 class SettingParser:
 
@@ -9,10 +10,11 @@ class SettingParser:
             self.original = settings
             if "pid" in settings.keys():
                 self.pid = settings["pid"]
-
             if "file" in settings.keys():
-                "TODO"
-                # read_data(args[1])
+                if os.path.exists(settings["file"]):
+                    f = open(settings["file"])
+                    for line in f:
+                        data.add_data(line)
             if "price" in settings.keys():
                 data.price = float(settings["price"])
             if "n_judgements" in settings.keys():

@@ -8,7 +8,7 @@ class Worker:
         self.properties = properties
         self.task = None # it will be assigned by task assignment strategy
 
-    def execute(self):
+    def execute(self, worker_manager, task_manager, data):
     # must have this function
     # this function returns the actual execution time
         return self.properties["execution_time"]
@@ -48,7 +48,14 @@ def assign(worker_manager, task_manager, data):
     return (worker, task)
 
 #others
+
+def init(worker_manager, task_manager, data):
+    "Do something"
+
 def output(worker_manager, task_manager, data):
     dict = {}
     dict["num_of_workers"] = len(worker_manager.workers)
     return dict
+
+def final(worker_manager, task_manager, data):
+    "Do something"
