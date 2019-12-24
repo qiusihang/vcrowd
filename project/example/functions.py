@@ -17,9 +17,10 @@ class Worker:
             for i in range(len(du.data_row) - 1):
                 n1 = du.data_row[i]
                 n2 = du.data_row[i+1]
-                for j in range(20):
-                    lat = n1.lat + (n2.lat-n1.lat)/20*j
-                    lng = n1.lng + (n2.lng-n1.lng)/20*j
+                steps = int(n1.get_distance(n2) / 5)
+                for j in range(steps):
+                    lat = n1.lat + (n2.lat-n1.lat)/steps*j
+                    lng = n1.lng + (n2.lng-n1.lng)/steps*j
                     trees = data.tf.find_trees(lat, lng)
                     for tree in trees:
                         if random.random() < 0.8: # it can be set by worker properties on web
@@ -52,7 +53,6 @@ def task_generation(data, n_data_rows):
 # do not change input parameters - it returns data_units for creating a new task
     data_units = data.random_selection(n_data_rows)
     return data_units
-
 #taskassign
 
 def assign(worker_manager, task_manager, data):
@@ -191,10 +191,15 @@ def init(worker_manager, task_manager, data):
 
 def output(worker_manager, task_manager, data):
     dict = {}
-    # dict["num_of_workers"] = len(worker_manager.workers)
+    n = 0
+    for du in data.data_units:
+        n += len(du.judgements)
+    dict["cost"] = n * data.price
+    dict["num_of_workers"] = len(worker_manager.workers)
     return dict
 
 def final(worker_manager, task_manager, data):
+    plt.figure()
     data.rn.plot_map()
     px = []
     py = []

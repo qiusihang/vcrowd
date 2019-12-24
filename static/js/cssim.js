@@ -47,8 +47,8 @@ window.onload = function() {
         var str = "";
         for ( var i = 0 ; i < data["output"].length ; i ++ ) {
             var prop = data["output"][i].replace(".png","");
-            str += "<b>Results of <i>"+prop+"</i></b><br/><br/>";
-            str += "<center><img src=\"fig?pid="+data["pid"]+"&prop="+prop+"\" style=\"width:70%;\"></img></center><br/>";
+            str += "<center><b>Results of <i>"+prop+"</i></b><br>";
+            str += "<img src=\"fig?pid="+data["pid"]+"&prop="+prop+"\" style=\"width:70%;\"></img></center><br><br><hr>";
         }
         document.getElementById("qualityres").innerHTML = str;
     }
@@ -286,12 +286,14 @@ function runbtn() {
 
     document.getElementById("run-button").style.visibility = "hidden";
     document.getElementById("stop-run").style.visibility = "visible";
+    document.getElementById("run-cover").style.display = "block";
     jQuery.ajax({
         url: "/run?pid="+data.pid,
         success:function(response){
             console.log(response);
                 document.getElementById("run-button").style.visibility = "visible";
                 document.getElementById("stop-run").style.visibility = "hidden";
+                document.getElementById("run-cover").style.display = "none";
         },
         error:function(e){
             console.log(e);

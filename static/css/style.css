@@ -103,6 +103,15 @@ html, body {
     overflow: auto;
 }
 
+#run-cover {
+    position:absolute;
+    top:100px;
+    width:320px;
+    right:20px;
+    bottom:50px;
+    cursor: not-allowed;
+    display:none;
+}
 #sidebar {
     position:absolute;
     top:100px;

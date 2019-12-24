@@ -17,21 +17,22 @@
                 <table style="width:100%;"><tr><td style="text-align:left;vertical-align: bottom;width:70%;">
                 <span style="font-size:24px;color:#21618C;"><b>Results</b>
                 </span></td></tr></table>
-                <hr><br/>
+                <hr><br>
 
                 <div id = "qualityres"></div>
-                
-                <center><span style="font-size:16px;color:#21618C;">
+
+                <center><span style="font-size:16px;color:#21618C;cursor:pointer" onclick="gotopage('download?pid={{data.pid}}')">
                     <b><u>Download results</u></b>
                 </span></center>
-                <br/>
+                <br>
+                <br>
             </div>
         </div>
 
         <div id = "sidebar">
             <div style="position:absolute;top:10px;left:10px;height:80px;">
-                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
-                <div id="data-title" style="font-size:20px;height:30px;display:inline-block;overflow:auto;">{{data.title}}</div>
+                <span style="font-size:16px"><b>Project Title: </b><br><br>
+                <input id="data-title" style="font-size:20px;border:1px solid #e6e6e6;" size="25" value="{{data.title}}" readonly>
             </div>
             <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
             <div style="position:absolute;top:110px;left:10px;font-size:16px"><b>Created: </b><div id="data-created" style="display:inline-block">{{data.created}}</div></div>

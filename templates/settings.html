@@ -37,15 +37,15 @@
                         </span>
                     </td> -->
                 </tr></table>
-                <hr><br/>
+                <hr><br>
 
                 <div id = "datasettings">
-                    <b>Data Settings</b><br/><br/>
+                    <b>Data Settings</b><br><br>
                     <table style="width:100%">
                         <tr>
-                            <td style="width:30%">Add source data<br/><span style="font-size:14px;color:#666666;">(Optional)</span></td>
+                            <td style="width:30%">Add source data<br><span style="font-size:14px;color:#666666;">(Optional)</span></td>
                             <td>
-                                <input id="file" type="file" style="font-size:14px;" value="{{data.file}}"><br/>
+                                <input id="file" type="file" style="font-size:14px;" value="{{data.file}}"><br>
                                 <span style="font-size:14px;color:#666666;">CSV spreadsheet.</span>
                             </td>
                         </tr>
@@ -55,7 +55,7 @@
                         <tr>
                             <td>Price per judgment</td>
                             <td>
-                                <input id="price" style="font-size:12px;border-radius:4px;" size="10" value="{{data.price}}">&nbsp;&nbsp;$ <br/>
+                                <input id="price" style="font-size:12px;border-radius:4px;" size="10" value="{{data.price}}">&nbsp;&nbsp;$ <br>
                                 <span style="font-size:14px;color:#666666;">Amount you pay a worker per judgment.</span>
                             </td>
                         </tr>
@@ -65,21 +65,21 @@
                         <tr>
                             <td>Judgments per data row &nbsp;&nbsp;</td>
                             <td>
-                                <input id="n_judgements" style="font-size:12px;border-radius:4px;" size="10" value="{{data.n_judgements}}"><br/>
+                                <input id="n_judgements" style="font-size:12px;border-radius:4px;" size="10" value="{{data.n_judgements}}"><br>
                                 <span style="font-size:14px;color:#666666;">Number of judgments per data row.</span>
                             </td>
                         </tr>
                     </table>
-                    <hr><br/>
+                    <hr><br>
                 </div>
 
                 <div id = "workersettings">
-                    <b>Worker Settings</b><br/><br/>
+                    <b>Worker Settings</b><br><br>
                     <table style="width:100%">
                         <tr>
                             <td style="width:30%;height:20px;">Inter arrival time &nbsp;</td>
                             <td style="height:20px;">
-                                <input id="worker_arrival_interval" style="font-size:12px;border-radius:4px;" size="10" value="{{data.worker_arrival_interval}}"><br/>
+                                <input id="worker_arrival_interval" style="font-size:12px;border-radius:4px;" size="10" value="{{data.worker_arrival_interval}}"><br>
                                 <span style="font-size:14px;color:#666666;">Average inter arrival time follows the Poisson distribution.  (unit: second)</span>
                             </td>
                         </tr>
@@ -89,7 +89,7 @@
                         <tr>
                             <td style="height:20px;">Dropout time &nbsp;</td>
                             <td style="height:20px;">
-                                <input id="dropout_time" style="font-size:12px;border-radius:4px;" size="10" value="{{data.dropout_time}}"><br/>
+                                <input id="dropout_time" style="font-size:12px;border-radius:4px;" size="10" value="{{data.dropout_time}}"><br>
                                 <span style="font-size:14px;color:#666666;">The task will be terminated if the worker cannot complete it within dropout time.  (unit: second)</span>
                             </td>
                         </tr>
@@ -105,27 +105,27 @@
                                 <div id="add_prop" style="display:none">
                                     <input id="property_name" style="font-size:12px;border-radius:4px;" size="20" value="property name">
                                     <input style="width:100px;background-color:#999999;color:#fff;border-radius:10px" type="button" value="OK" onclick="addproperty()">
-                                </div><br/>
+                                </div><br>
                                 <span style="font-size:14px;color:#666666;">Number of classifications of workers (0 < n &le; 5).  (unit of time: second)</span>
                             </td>
                         </tr>
                     </table>
 
-                    <br/>
+                    <br>
 
                     <div id = "properties" style="left:20px;right:20px;background-color:#dddddd;border-radius:4px;overflow:auto;display:none;"></div>
 
-                    <br/>
-                    <hr><br/>
+                    <br>
+                    <hr><br>
                 </div>
 
                 <div id = "outputsettings">
-                    <b>Output Settings</b><br/><br/>
+                    <b>Output Settings</b><br><br>
                     <table style="width:100%">
                         <tr>
                             <td style="height:20px;">Running time &nbsp;</td>
                             <td style="height:20px;">
-                                <input id="runtime" style="font-size:12px;border-radius:4px;" size="10" value="{{data.runtime}}"><br/>
+                                <input id="runtime" style="font-size:12px;border-radius:4px;" size="10" value="{{data.runtime}}"><br>
                                 <span style="font-size:14px;color:#666666;">The total running time of this simulation instance. (unit: second)</span>
                             </td>
                         </tr>
@@ -134,7 +134,7 @@
                         <tr>
                             <td style="width:30%;height:20px;">Output time step &nbsp;</td>
                             <td style="height:20px;">
-                                <input id="time_stamp" style="font-size:12px;border-radius:4px;" size="10" value="{{data.time_stamp}}"><br/>
+                                <input id="time_stamp" style="font-size:12px;border-radius:4px;" size="10" value="{{data.time_stamp}}"><br>
                                 <span style="font-size:14px;color:#666666;">The system will record output data at each time step. (unit: second)</span>
                             </td>
                         </tr>
@@ -143,20 +143,20 @@
                         <tr style="display:none">
                             <td style="height:20px;display:none">Repeat Times &nbsp;</td>
                             <td style="height:20px;display:none">
-                                <input id="repeat_times" style="font-size:12px;border-radius:4px;" size="10" value="{{data.repeat_times}}"> <br/>
+                                <input id="repeat_times" style="font-size:12px;border-radius:4px;" size="10" value="{{data.repeat_times}}"> <br>
                                 <span style="font-size:14px;color:#666666;">The execution times of this simulation instance.</span>
                             </td>
                         </tr>
 
 
                     </table>
-                    <hr><br/>
+                    <hr><br>
                 </div>
 
                 <div id = "plugins">
                     <b>Plug-ins</b>
                     <div style="display:inline-block;color:#21618C;cursor:pointer" onclick="gotopage_settings('plugins?pid={{data.pid}}')">[<u>code editor</u>]</div>
-                    <br/><br/>
+                    <br><br>
                     <table style="width:100%">
                         <tr>
                             <td style="width:30%;height:20px;">Task generation</td>
@@ -170,7 +170,7 @@
                         <tr><td style="height:10px;"></td></tr>
                         <tr>
                             <td style="height:20px;">Task assignment</td>
-                            <td style="height:20px;"><input type="radio" name = "ta" id="ta1" value = "default" checked="checked"> &nbsp;Default (random)<br/></td>
+                            <td style="height:20px;"><input type="radio" name = "ta" id="ta1" value = "default" checked="checked"> &nbsp;Default (random)<br></td>
                         </tr>
                         <tr>
                             <td style="height:20px;"></td>
@@ -179,14 +179,14 @@
                         <tr><td style="height:10px;"></td></tr>
                         <tr>
                             <td style="height:20px;">Worker selection</td>
-                            <td style="height:20px;"><input type="radio" name = "ws" id="ws1" value = "none" checked="checked"> &nbsp;None<br/></td>
+                            <td style="height:20px;"><input type="radio" name = "ws" id="ws1" value = "none" checked="checked"> &nbsp;None<br></td>
                         </tr>
                         <tr>
                             <td style="height:20px;"></td>
                             <td style="height:20px;"><input type="radio" name = "ws" id="ws2" value = "customized"> &nbsp;Customized</td>
                         </tr>
                     </table>
-                    <hr><br/>
+                    <hr><br>
                 </div>
 
             </div>
@@ -194,7 +194,7 @@
 
         <div id = "sidebar">
             <div style="position:absolute;top:10px;left:10px;height:80px;">
-                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
+                <span style="font-size:16px"><b>Project Title: </b><br><br>
                 <input id="data-title" style="font-size:20px;border:1px solid #e6e6e6;" size="25" value="{{data.title}}">
             </div>
             <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
@@ -226,6 +226,7 @@
         <div id = "result-button" onclick="gotopage_settings('results?pid={{data.pid}}')">
             <div id = "result-button-text"><b>Results</b></div>
         </div>
+        <div id = "run-cover"></div>
     </body>
 
 </html>

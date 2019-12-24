@@ -99,8 +99,7 @@ class Instance:
                 if prop in self.output_data[i]:
                     l = self.output_data[i][prop]
                 d.append(l)
-            print(range)
-            print(d)
+            plt.figure()
             plt.plot(range,d)
             plt.xlabel("time (s)")
             plt.ylabel(prop)

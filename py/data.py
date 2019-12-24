@@ -42,7 +42,7 @@ class Data:
     def random_selection(self, n):
         l = len(self.data_units)
         d = []
-        for i in range(l):
+        for i in range(n):
             r = random.randint(0,l-1)
             d.append(self.data_units[r])
         return d

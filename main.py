@@ -11,6 +11,7 @@ import random
 import string
 import shutil
 import importlib
+import zipfile
 
 def randomStringDigits(stringLength = 10):
     lettersAndDigits = string.ascii_letters + string.digits
@@ -137,6 +138,17 @@ def results():
         return render_template('results.html', data=data)
     else:
         return "Page Not Found!"
+
+
+@app.route('/download')
+def download():
+    pid = request.args.get('pid')
+    zipf = zipfile.ZipFile("./output/"+pid+".zip", 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk("./output/"+pid+"/"):
+        for file in files:
+            zipf.write(os.path.join(root, file))
+    zipf.close()
+    return send_from_directory('.', "output/"+pid+".zip")
 
 
 @app.route('/fig')

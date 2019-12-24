@@ -30,55 +30,55 @@
                 <span style="font-size:24px;color:#21618C;"><b>Code Editor for Plug-ins</b>
                 </span></td><td style="text-align:right;vertical-align: bottom;width:30%;">
                 </td></tr></table>
-                <br/>
+                <br>
 
-                <br/><b>Worker and Task Models</b><hr>
+                <br><b>Worker and Task Models</b><hr>
 
                 <div id = "workermodel">
-                    Worker Model<br/><br/>
+                    Worker Model<br><br>
                     <div id="editor1" class="editor">{{function.workermodel}}</div>
-                    <br/>
+                    <br>
                 </div>
 
                 <div id = "taskmodel">
-                    Task Model<br/><br/>
+                    Task Model<br><br>
                     <div id="editor2" class="editor">{{function.taskmodel}}</div>
-                    <br/>
+                    <br>
                 </div>
 
-                <br/><b>Customized Strategies</b><hr>
+                <br><b>Customized Strategies</b><hr>
 
                 <div id = "taskgen">
-                    Task Generation<br/><br/>
+                    Task Generation<br><br>
                     <div id="editor4" class="editor">{{function.taskgen}}</div>
-                    <br/>
+                    <br>
                 </div>
 
                 <div id = "taskassign">
-                    Task Assignment<br/><br/>
+                    Task Assignment<br><br>
                     <div id="editor5" class="editor">{{function.taskassign}}</div>
-                    <br/>
+                    <br>
                 </div>
 
                 <div id = "workerslt">
-                    Worker Selection<br/><br/>
+                    Worker Selection<br><br>
                     <div id="editor3" class="editor">{{function.workerslt}}</div>
-                    <br/>
+                    <br>
                 </div>
 
-                <br/><b>Others</b><hr>
+                <br><b>Others</b><hr>
                 <div id = "others">
-                    Code for Initialization, Output and Finalization<br/><br/>
+                    Code for Initialization, Output and Finalization<br><br>
                     <div id="editor6" class="editor">{{function.others}}</div>
-                    <br/>
+                    <br>
                 </div>
             </div>
         </div>
 
         <div id = "sidebar">
             <div style="position:absolute;top:10px;left:10px;height:80px;">
-                <span style="font-size:16px"><b>Project Title: </b><br/><br/>
-                <div id="data-title" style="font-size:20px;height:30px;display:inline-block;overflow:auto;">{{data.title}}</div>
+                <span style="font-size:16px"><b>Project Title: </b><br><br>
+                <input id="data-title" style="font-size:20px;border:1px solid #e6e6e6;" size="25" value="{{data.title}}" readonly>
             </div>
             <div style="position:absolute;top:90px;left:10px;font-size:16px"><b>Project ID: </b><div id="data-pid" style="display:inline-block">{{data.pid}}</div></div>
             <div style="position:absolute;top:110px;left:10px;font-size:16px"><b>Created: </b><div id="data-created" style="display:inline-block">{{data.created}}</div></div>
@@ -110,6 +110,7 @@
         <div id = "result-button" onclick="gotopage_plugins('results?pid={{data.pid}}')">
             <div id = "result-button-text"><b>Results</b></div>
         </div>
+        <div id = "run-cover"></div>
 
         <script>
             for (var i = 1 ; i <= 6 ; i ++ )
