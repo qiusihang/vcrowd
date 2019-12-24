@@ -1,5 +1,6 @@
 #workermodel
 import random
+
 class Worker:
 
     def __init__(self, wid, classification, properties):
