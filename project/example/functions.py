@@ -23,7 +23,7 @@ class Worker:
                     lng = n1.lng + (n2.lng-n1.lng)/steps*j
                     trees = data.tf.find_trees(lat, lng)
                     for tree in trees:
-                        if random.random() < 0.8: # it can be set by worker properties on web
+                        if random.random() < self.properties["accuracy"]: # it can be set by worker properties on web
                             data.res.append(tree)
         return self.properties["execution_time"]
 
