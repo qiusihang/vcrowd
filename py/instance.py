@@ -34,7 +34,7 @@ class Instance:
 
         self.functions =  __import__("functions")
         importlib.reload(self.functions)
-        self.functions.init(self.wm, self.tm, self.data)
+        self.functions.init(self, self.wm, self.tm, self.data)
 
 
     def run(self):
@@ -88,7 +88,10 @@ class Instance:
 
     def output(self):
         self.range.append(self.time)
-        self.output_data.append(self.functions.output(self.wm, self.tm, self.data))
+        self.output_data.append(self.functions.output(self, self.wm, self.tm, self.data))
+
+    def fig_location(self, prop):
+        return "output/"+str(self.simulation_id)+"/fig/"+prop+".png"
 
     def plot(self,range):
         plt.switch_backend('Agg')   # run matplotlib at the backend
@@ -103,7 +106,7 @@ class Instance:
             plt.plot(range,d)
             plt.xlabel("time (s)")
             plt.ylabel(prop)
-            plt.savefig("output/"+str(self.simulation_id)+"/fig/"+prop+".png")
+            plt.savefig(self.fig_location(prop))
 
     def finish(self):
         self.output()
@@ -120,4 +123,4 @@ class Instance:
         f.write(json.dumps(self.range))
         f.close()
         self.plot(self.range)
-        self.functions.final(self.wm, self.tm, self.data)
+        self.functions.final(self, self.wm, self.tm, self.data)

@@ -180,7 +180,7 @@ class RoadNetwork:
             plt.plot(ndx, ndy, lw = 0.5, c = [0.3,0.3,0.3])
 
 
-def init(worker_manager, task_manager, data):
+def init(instance, worker_manager, task_manager, data):
     rn = RoadNetwork("project/example/road_network.xml")
     tf = TreeFinder("project/example/trees.csv")
     for r in rn.roads:
@@ -189,7 +189,7 @@ def init(worker_manager, task_manager, data):
     data.tf = tf
     data.res = []
 
-def output(worker_manager, task_manager, data):
+def output(instance, worker_manager, task_manager, data):
     dict = {}
     n = 0
     for du in data.data_units:
@@ -198,7 +198,7 @@ def output(worker_manager, task_manager, data):
     dict["num_of_workers"] = len(worker_manager.workers)
     return dict
 
-def final(worker_manager, task_manager, data):
+def final(instance, worker_manager, task_manager, data):
     plt.figure()
     data.rn.plot_map()
     px = []
@@ -207,4 +207,4 @@ def final(worker_manager, task_manager, data):
         px.append(tree.lng)
         py.append(tree.lat)
     plt.scatter(px,py,c=[0.3,0.8,0.3],marker='o',s=1)
-    plt.savefig("output/example/fig/tree_map.png")
+    plt.savefig(instance.fig_location("tree_map"))

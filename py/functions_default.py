@@ -49,13 +49,13 @@ def assign(worker_manager, task_manager, data):
 
 #others
 
-def init(worker_manager, task_manager, data):
+def init(instance, worker_manager, task_manager, data):
     "Do something"
 
-def output(worker_manager, task_manager, data):
+def output(instance, worker_manager, task_manager, data):
     dict = {}
     dict["num_of_workers"] = len(worker_manager.workers)
     return dict
 
-def final(worker_manager, task_manager, data):
+def final(instance, worker_manager, task_manager, data):
     "Do something"
