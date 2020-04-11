@@ -1,5 +1,6 @@
 # VirtualCrowd
-A Simulation Platform for Microtask Crowdsourcing Campaigns
+
+A Simulation Platform for MicrotaskCrowdsourcing Campaigns
 
 ## Usage
 You can launch the server by running:
